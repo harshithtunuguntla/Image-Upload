@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+    <link href='https://fonts.googleapis.com/css?family=Noto Sans' rel='stylesheet'>
+
+
+    <title>DevChallenges</title>
+
+
+    <style>
+
+        :root{
+            --clr-white-darkest:#F6F8FB;
+            --clr-white-dark:#FAFAFB;
+            --clr-white-light:#FFFFFF;
+
+            --clr-blue:#2F80ED;
+            --clr-dashed-border:#97BEF4;
+
+            --clr-gray-2:#4F4F4F;
+            --clr-gray-3:#828282;
+            --clr-gray-4:#BDBDBD;
+        }
+
+        body{
+            background-color: var(--clr-white-dark);
+        }
+
+
+        .drop-area{
+            margin-left:34rem;
+            margin-top: 8rem;
+            width:25rem;
+            height:30rem;
+            background-color: var(--clr-white-light);
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            /* border:blue;
+            border-style: dashed; */
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .heading{
+            font-family: 'Poppins';
+            font-size: 18px;
+            color:var(--clr-gray-2);
+            font-weight: 600;
+            margin-top:3rem;
+            
+        }
+
+        .heading2{
+            font-family: 'Poppins';
+            font-size:11px;
+            color: var(--clr-gray-3);
+            font-weight: 500;
+            margin-top:0.77rem;
+        }
+
+        .image-area{
+            height:50%;
+            width:85%;
+            margin-top:1rem;
+            border-radius: 12px;
+            box-sizing: border-box;
+            border: 2px dashed #97BEF4;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            padding:3rem;
+            background-color: var(--clr-white-darkest);
+
+            
+        }
+        .image-area-description{
+            margin-top: 2rem;
+            font-family: 'Poppins';
+            color:var(--clr-gray-4);
+            font-size: 12px;
+
+        }
+
+        .or{
+            font-family: 'Poppins';
+            font-size: 13px;
+            color: var(--clr-gray-4);
+        }
+
+        .choose-btn{
+            font-family: 'Noto Sans';
+            font-size: 13px;
+            background-color: var(--clr-blue);
+            border-radius: 8px;
+            padding:10px 15px;
+            color: white;
+        }
+
+        .choose-btn input[type=file] {
+            font-size: 100px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+        }
+
+        a{
+            text-decoration: none;
+            color: white;
+        }
+
+    </style>
+</head>
+
+
+
+<body>
+    <div class="drop-area">
+        <div class="heading">Upload your image</div>
+        <div class="heading2">File should be Jpeg,Png..</div>
+        <div class="image-area">
+            <img src="/static/image.svg" alt="Nothin">
+            <p class="image-area-description">Drag & Drop your image here</p>
+        </div>
+
+        <div>
+            <p class="or">Or</p>
+        </div>
+
+        <!-- <input type="file" id="actual-btn"/>
+        <label for="actual-btn">Choose File</label> -->
+
+
+        <!-- <form method="post" action="/upload" enctype="multipart/form-data">
+            <input type="file" name="file">
+            <input type="submit" value="Upload">
+        </form> -->
+
+
+
+
+        <form method="post" action="/upload" enctype="multipart/form-data">
+            <input type="file" name="file" id="btnbtn" onchange="form.submit()" hidden>
+            <label for="btnbtn" class="choose-btn">Choose a file</label>
+        </form>
+
+
+
+        <!-- <form method = "POST" action = "http://localhost:5000/upload"  enctype = "multipart/form-data">
+            <input type = "file" name = "file"/>
+            <label for="BtnBrowseHidden" id="LblBrowse">Browse</label>
+            <input type = "submit" value="upload"/>
+        </form>  -->
+
+
+    </div>
+</body>
+
+
+</html>
