@@ -1,6 +1,6 @@
 <!-- Please update value in the {}  -->
 
-<h1 align="center">{Your project name}</h1>
+<h1 align="center">{Image Uploader API}</h1>
 
 <div align="center">
    Solution for a challenge from  <a href="http://devchallenges.io" target="_blank">Devchallenges.io</a>.
@@ -8,7 +8,7 @@
 
 <div align="center">
   <h3>
-    <a href="https://{your-demo-link.your-domain}">
+    <a href="https://harshithimage.herokuapp.com">
       Demo
     </a>
     <span> | </span>
@@ -41,4 +41,4 @@
 - [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML)
 - [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)
 - [Python-Flask](https://flask.palletsprojects.com/en/2.0.x/)
-- [Firenbase](https://firebase.google.com/)
+- [Firebase](https://firebase.google.com/)
