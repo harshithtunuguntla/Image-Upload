@@ -1,10 +1,15 @@
 import re
-from flask import Flask, request
+from flask import Flask, request,flash, redirect
 from flask.templating import render_template
 from werkzeug.utils import secure_filename
 
 import pyrebase
 import os
+from io import BufferedReader
+import tempfile
+
+import numpy
+import cv2
 
 # import firebase_admin
 # from firebase_admin import credentials
@@ -14,6 +19,7 @@ import time
 app = Flask(__name__)
 
 app.config['UPLOAD_FOLDER'] = 'hero'
+app.secret_key = "super secret key"
 
 
 firebaseConfig = {
@@ -35,6 +41,17 @@ storage=firebase.storage()
 
 # storage.child("images/image2.png").put("devchallenges.png")
 
+ALLOWED_EXTENSIONS = { 'png', 'jpg', 'jpeg'}
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+def file_extension(filename):
+    return filename.rsplit('.', 1)[1].lower()
+
+metadata = '"contentType": "image/jpeg"'
+
+
 @app.route('/')
 def home():
     return render_template('index.html')
@@ -50,33 +67,71 @@ def list_all():
 
     return("nothinn")
 
-@app.route("/datetime")
+
 def date_time():
     timestr = time.strftime("%Y%m%d-%H%M%S")
     print(timestr)
     return(timestr)
 
-ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
-def allowed_file(filename):
-    return '.' in filename and \
-        filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+# @app.route("/upload",methods=['GET','POST'])
+# def upload_the_file():
+    
+#     if request.method == 'POST':
+
+#         if 'file' in request.files:
+#             print("File detected")
+#             image = request.files['file']
+#             storage.child("images/newimageandsi.png").put(image,metadata)
+#         return "work done return"
+
+#     return "normal retrun"
+
+
+
+
 
 @app.route("/upload",methods=['GET','POST'])
 def upload_file():
     
+    if request.method == 'POST':
 
-    if request.method=='POST':
         if 'file' not in request.files:
-            print('no file part')
-            return 'end'
+            flash('No file part')
+            return redirect(request.url)
+
         file = request.files['file']
 
+        if file.filename == '':
+            flash('No selected file')
+            return redirect(request.url)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
+            filename = "images/"+ date_time() +"." +str(file_extension(file.filename))
 
-    return 'uploaded succesfully'
+            #Using Temp File Method
+            # temp = tempfile.NamedTemporaryFile(delete=False)
+            # file.save(temp.name)
+
+            # filestr = request.files['file'].read()
+            # npimg = numpy.fromstring(filestr, numpy.uint8)
+            # # convert numpy array to image
+            # img = cv2.imdecode(npimg, cv2.CV_LOAD_IMAGE_UNCHANGED)
+
+            storage.child(filename).put(file,metadata)
+
+            # storage.child("images/ewlii.png").put(file)
+
+            # Clean-up temp image
+            # os.remove(temp.name)
+
+            # storage.child("images/hsuh.png").put(file)
+            # print(file)
+            # imae = BufferedReader(file)
+
+            return "work done"
+    return 'edo poindi ra seenu'
 
 
 

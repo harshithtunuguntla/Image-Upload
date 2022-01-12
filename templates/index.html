@@ -9,35 +9,40 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
     <link href='https://fonts.googleapis.com/css?family=Noto Sans' rel='stylesheet'>
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+
 
     <title>DevChallenges</title>
 
 
     <style>
+        :root {
+            --clr-white-darkest: #F6F8FB;
+            --clr-white-dark: #FAFAFB;
+            --clr-white-light: #FFFFFF;
 
-        :root{
-            --clr-white-darkest:#F6F8FB;
-            --clr-white-dark:#FAFAFB;
-            --clr-white-light:#FFFFFF;
+            --clr-blue: #2F80ED;
+            --clr-dashed-border: #97BEF4;
 
-            --clr-blue:#2F80ED;
-            --clr-dashed-border:#97BEF4;
-
-            --clr-gray-2:#4F4F4F;
-            --clr-gray-3:#828282;
-            --clr-gray-4:#BDBDBD;
+            --clr-gray-2: #4F4F4F;
+            --clr-gray-3: #828282;
+            --clr-gray-4: #BDBDBD;
         }
 
-        body{
+        body {
             background-color: var(--clr-white-dark);
         }
 
 
-        .drop-area{
-            margin-left:34rem;
+        #drop-area {
+            margin-left: 34rem;
             margin-top: 8rem;
-            width:25rem;
-            height:30rem;
+            width: 25rem;
+            height: 30rem;
             background-color: var(--clr-white-light);
             box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
             border-radius: 12px;
@@ -48,58 +53,96 @@
             flex-direction: column;
         }
 
-        .heading{
+
+
+        #original-loading {
+            margin-left: 34rem;
+            margin-top: 17rem;
+            width: 25rem;
+            height: 8rem;
+            background-color: var(--clr-white-light);
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            /* border:blue;
+            border-style: dashed; */
+            display: none;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        #tamper-loading {
+            margin-left: 34rem;
+            margin-top: 17rem;
+            width: 25rem;
+            height: 8rem;
+            background-color: var(--clr-white-light);
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            /* border:blue;
+            border-style: dashed; */
+            display: none;
+            align-items: center;
+            flex-direction: row;
+        }
+
+        .heading {
             font-family: 'Poppins';
             font-size: 18px;
-            color:var(--clr-gray-2);
+            color: var(--clr-gray-2);
             font-weight: 600;
-            margin-top:3rem;
-            
+            margin-top: 3rem;
+
         }
 
-        .heading2{
+        .heading2 {
             font-family: 'Poppins';
-            font-size:11px;
+            font-size: 11px;
             color: var(--clr-gray-3);
             font-weight: 500;
-            margin-top:0.77rem;
+            margin-top: 0.77rem;
         }
 
-        .image-area{
-            height:50%;
-            width:85%;
-            margin-top:1rem;
+        .image-area {
+            height: 50%;
+            width: 85%;
+            margin-top: 1rem;
             border-radius: 12px;
             box-sizing: border-box;
             border: 2px dashed #97BEF4;
             display: flex;
             align-items: center;
             flex-direction: column;
-            padding:3rem;
+            padding: 3rem;
             background-color: var(--clr-white-darkest);
 
-            
+
         }
-        .image-area-description{
+
+        .image-area.active {
+            border: 2px solid #97BEF4;
+        }
+
+        .image-area-description {
             margin-top: 2rem;
             font-family: 'Poppins';
-            color:var(--clr-gray-4);
+            color: var(--clr-gray-4);
             font-size: 12px;
 
         }
 
-        .or{
+        .or {
+            margin-top: 1rem;
             font-family: 'Poppins';
             font-size: 13px;
             color: var(--clr-gray-4);
         }
 
-        .choose-btn{
+        .choose-btn {
             font-family: 'Noto Sans';
             font-size: 13px;
             background-color: var(--clr-blue);
             border-radius: 8px;
-            padding:10px 15px;
+            padding: 10px 15px;
             color: white;
         }
 
@@ -111,10 +154,164 @@
             opacity: 0;
         }
 
-        a{
+        a {
             text-decoration: none;
             color: white;
         }
+
+        .original-uploading-text {
+            color: var(--clr-gray-2);
+            display: inline;
+            align-self: flex-start;
+            font-size: 17px;
+            font-family: 'poppins';
+            font-weight: 600;
+            margin-top: 2rem;
+            margin-left: 1rem;
+        }
+
+        .tamper-uploading-text {
+            align-self: center;
+            color: var(--clr-gray-2);
+            display: inline;
+            font-size: 25px;
+            font-family: 'poppins';
+            font-weight: 600;
+            /* margin-left: 5rem; */
+            margin: 3rem 2.5rem 3rem 6rem;
+        }
+
+        /* Uploading Css Starts */
+        /* .slider {
+            position: absolute;
+            width: 1000px;
+            height: 5px;
+            overflow-x: hidden;
+        }
+
+        .line {
+            position: absolute;
+            opacity: 0.4;
+            background: #4a8df8;
+            width: 150%;
+            height: 5px;
+        }
+
+        .subline {
+            position: absolute;
+            background: #4a8df8;
+            height: 5px;
+        }
+
+        .inc {
+            animation: increase 2s infinite;
+        }
+
+        .dec {
+            animation: decrease 2s 0.5s infinite;
+        }
+
+        @keyframes increase {
+            from {
+                left: -5%;
+                width: 5%;
+            }
+
+            to {
+                left: 130%;
+                width: 100%;
+            }
+        }
+
+        @keyframes decrease {
+            from {
+                left: -80%;
+                width: 80%;
+            }
+
+            to {
+                left: 110%;
+                width: 10%;
+            }
+        } */
+
+        /*Uploading CSS Ends */
+
+
+        .loading-box {
+            position: relative;
+            width: 350px;
+            height: 9px;
+            border-radius: 50px;
+            border: 2px solid #ededed;
+            overflow: hidden;
+        }
+
+        .loader {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            border-radius: 50px;
+            background: var(--clr-blue);
+            left: 0%;
+        }
+
+        .loader {
+            left: -100%;
+            animation: load 3s linear infinite;
+        }
+
+        @keyframes load {
+            0% {
+                left: -100%;
+            }
+
+            100% {
+                left: 100%;
+            }
+        }
+
+
+
+        @media only screen and (max-width:75rem) {
+            #drop-area{
+                margin-left: 20rem;
+                flex-direction:column;
+            }
+
+            #original-loading{
+                margin-left: 15rem;
+            }
+
+
+        }
+
+        @media only screen and (max-width:45rem) {
+            #drop-area{
+                margin-left: 8rem;
+                flex-direction:column;
+            }
+
+            #original-loading{
+                margin-left: 10rem;
+            }
+
+        }
+
+
+        @media only screen and (max-width:30rem) {
+            #drop-area{
+                margin-left: 0rem;
+                flex-direction:column;
+            }
+
+            #original-loading{
+                margin-left: 0rem;
+            }
+
+
+        }
+
 
     </style>
 </head>
@@ -122,12 +319,12 @@
 
 
 <body>
-    <div class="drop-area">
+    <div id="drop-area">
         <div class="heading">Upload your image</div>
         <div class="heading2">File should be Jpeg,Png..</div>
         <div class="image-area">
             <img src="/static/image.svg" alt="Nothin">
-            <p class="image-area-description">Drag & Drop your image here</p>
+            <p class="image-area-description" id="change_text">Drag & Drop your image here</p>
         </div>
 
         <div>
@@ -146,8 +343,8 @@
 
 
 
-        <form method="post" action="/upload" enctype="multipart/form-data">
-            <input type="file" name="file" id="btnbtn" onchange="form.submit()" hidden>
+        <form method="post" action="/upload" enctype="multipart/form-data" id="imageform">
+            <input type="file" name="file" id="btnbtn" onchange="load_and_submit()" hidden>
             <label for="btnbtn" class="choose-btn">Choose a file</label>
         </form>
 
@@ -159,8 +356,154 @@
             <input type = "submit" value="upload"/>
         </form>  -->
 
+    </div>
+
+
+    <div id="tamper-loading">
+        <p class="tamper-uploading-text">Uploading...</p>
+
+        <!-- Uploading HTML Starts -->
+        <!-- <div class="slider">
+            <div class="line"></div>
+            <div class="subline inc"></div>
+            <div class="subline dec"></div>
+          </div> -->
+        <!-- Uploading HTML Ends -->
+
+        <!-- Bootstraap Loading Animation Starts-->
+        <div class="spinner-grow text-primary" role="status">
+            <span class="sr-only"></span>
+        </div>
+        <!-- Bootstrap Loading animation Ends -->
+    </div>
+
+
+    <div id="original-loading">
+
+        <p class="original-uploading-text">Uploading...</p>
+
+        <!-- Uploading HTML Starts -->
+        <!-- <div class="slider">
+            <div class="line"></div>
+            <div class="subline inc"></div>
+            <div class="subline dec"></div>
+          </div> -->
+        <!-- Uploading HTML Ends -->
+
+        <!-- Bootstraap Loading Animation Starts-->
+        <!-- <div class="spinner-grow text-primary" role="status">
+            <span class="sr-only"></span>
+        </div> -->
+        <!-- Bootstrap Loading animation Ends -->
+
+        <div class="loading-box">
+            <div class="loader"></div>
+        </div>
 
     </div>
+
+    <script>
+        function load_and_submit() {
+            document.getElementById("drop-area").style.display = 'none';
+            document.getElementById("original-loading").style.display = 'flex';
+            document.getElementById("imageform").submit();
+        }
+
+        const droparea = document.querySelector("#drop-area");
+        const image_area = document.querySelector(".image-area");
+
+        const change_the_text = document.getElementById("change_text");
+
+
+        droparea.addEventListener("dragover", (event) => {
+            event.preventDefault();
+            console.log("on drop area");
+            image_area.classList.add("active");
+            change_the_text.innerHTML = "Drop the file to upload"
+        });
+
+        droparea.addEventListener("dragleave", (event) => {
+            event.preventDefault();
+            console.log("outside drop area");
+            image_area.classList.remove("active")
+            change_the_text.innerHTML = "Drag & Drop your image here"
+
+
+        });
+
+        droparea.addEventListener("drop", (event) => {
+            event.preventDefault();
+            console.log("file dropppeddd");
+            file = event.dataTransfer.files[0];
+            let filetype = file.type;
+            console.log(filetype)
+
+            let filereader = new FileReader();
+
+
+            filereader.onload = () => {
+                let fileurl = filereader.result;
+                // console.log(fileurl);
+
+                document.getElementById("drop-area").style.display = 'none';
+                document.getElementById("original-loading").style.display = 'flex';
+
+                let img_name;
+
+                fetch("http://127.0.0.1:5000/upload/drop", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        data: fileurl,
+                        // Additional fields  here...
+                    })
+                })
+                    .then(function (res) {
+                        if (res.status !== 200) {
+                            console.log(`Looks like there was a problem. Status code: ${res.status}`);
+                            return;
+                        }
+                        res.json().then(function (data) {
+                            console.log(data["img_url"]);
+                            console.log(data["img_name"])
+                            img_name = data['img_name']
+                            let url = "/display/" + img_name
+                            console.log(url)
+                            window.location.replace(url)
+                        });
+
+
+
+                    })
+                    .catch(function (err) {
+                        console.log("Error!", err);
+                    });
+
+
+            };
+            filereader.readAsDataURL(file);
+
+
+        });
+
+
+        // $.ajax({
+                //     url: "'/upload/file'",
+                //     type: 'POST',
+                //     data: fileurl,
+                //     cache: false,
+                //     processData: false, // essential
+                //     contentType: false, // essential, application/pdf doesn't work.
+                //     enctype: 'multipart/form-data',
+
+                //     // If sucess, download file
+                //     success: function (data, status, xhr) {
+                //         console.log(data);
+                //     }
+                // });
+
+
+    </script>
 </body>
 
 

@@ -1,15 +1,14 @@
 import re
-from flask import Flask, request,flash, redirect
+from flask import Flask, request,flash, redirect, jsonify, make_response
+from flask.helpers import url_for
 from flask.templating import render_template
 from werkzeug.utils import secure_filename
 
 import pyrebase
 import os
-from io import BufferedReader
-import tempfile
+import base64
 
-import numpy
-import cv2
+import config
 
 # import firebase_admin
 # from firebase_admin import credentials
@@ -23,23 +22,22 @@ app.secret_key = "super secret key"
 
 
 firebaseConfig = {
-  "apiKey": "AIzaSyAUDh0-DJSc74VOv9mSIGULNfWxA0Jxwdo",
-  "authDomain": "imageupload-19537.firebaseapp.com",
-  "projectId": "imageupload-19537",
-  "databaseURL": 'https://imageupload-19537.firebaseio.com',
-  "storageBucket": "imageupload-19537.appspot.com",
-  "messagingSenderId": "216122971515",
-  "appId": "1:216122971515:web:545cf46083d59030cb19de",
-  "measurementId": "G-S2PCPDGCML",
-  "serviceAccount": "imageupload-19537-firebase-adminsdk-aa50y-d2df163fae.json"
+  "apiKey": config.apiKey,
+  "authDomain": config.authDomain,
+  "projectId": config.projectId,
+  "databaseURL": config.databaseURL,
+  "storageBucket": config.storageBucket,
+  "messagingSenderId": config.messagingSenderId,
+  "appId": config.appId,
+  "measurementId": config.measurementId,
+  "serviceAccount": config.serviceAccount
 }
-# firebase_admin.initialize_app(cred)
 
 
 firebase = pyrebase.initialize_app(firebaseConfig)
 storage=firebase.storage()
 
-# storage.child("images/image2.png").put("devchallenges.png")
+
 
 ALLOWED_EXTENSIONS = { 'png', 'jpg', 'jpeg'}
 
@@ -48,6 +46,13 @@ def allowed_file(filename):
 
 def file_extension(filename):
     return filename.rsplit('.', 1)[1].lower()
+
+def date_time():
+    timestr = time.strftime("%Y%m%d-%H%M%S")
+    print(timestr)
+    return(timestr)
+
+metadata = '"contentType": "image/jpeg"'
 
 
 @app.route('/')
@@ -66,70 +71,95 @@ def list_all():
     return("nothinn")
 
 
-def date_time():
-    timestr = time.strftime("%Y%m%d-%H%M%S")
-    print(timestr)
-    return(timestr)
+
+@app.route('/upload/drop',methods=['POST','GET'])
+def upp():
+    if request.method == 'POST':
+        print("something happp")
+        img_data = request.json['data']
+        img = img_data.partition(",")[2]
+        img = base64.b64decode(img)
+        
+        raw_file_name = date_time() 
+        
+        filepath = "images/"+ raw_file_name
+
+        storage.child(filepath).put(img,metadata)
+        
+        img_url = storage.child(filepath).get_url(None)
 
 
+        # resp = {"img_url":img_url}
+        # redirect(url_for('/listall'))
+        # render_template('display_image.html',img_url=img_url,file_name=raw_file_name)
+        resp = make_response(jsonify({"img_url": img_url,"img_name":raw_file_name}), 200)
+
+        return resp
+
+    return 'Nothing Happening'
 
 @app.route("/upload",methods=['GET','POST'])
 def upload_file():
     
     if request.method == 'POST':
 
-        try:
-            upload = request.files['upload']
-            storage.child("images/ytbupload.png").put(upload)
-        except:
-            pass
-
-        # check if the post request has the file part
         if 'file' not in request.files:
             flash('No file part')
             return redirect(request.url)
 
         file = request.files['file']
-        print(type(file))
 
         if file.filename == '':
             flash('No selected file')
             return redirect(request.url)
         if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            filename = date_time() +"." +str(file_extension(file.filename))
-            # firebase_filename = "images/" + str(filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             
-            #Using Temp File Method
-            # temp = tempfile.NamedTemporaryFile(delete=False)
-            # file.save(temp.name)
+            filename = secure_filename(file.filename)
 
-            # filestr = request.files['file'].read()
-            # npimg = numpy.fromstring(filestr, numpy.uint8)
-            # # convert numpy array to image
-            # img = cv2.imdecode(npimg, cv2.CV_LOAD_IMAGE_UNCHANGED)
+            raw_file_name = date_time() 
+            
+            filepath = "images/"+ raw_file_name
 
-            storage.putString(file, 'base64', {
-            "contentType": 'image/jpeg'
-             });
+            storage.child(filepath).put(file,metadata)
 
-            storage.child
+            img_url = storage.child(filepath).get_url(None)
+            # print(img_url)
+            # print(filename)
+            # return render_template('display_image.html',img_url=img_url,file_name=raw_file_name)
+            url = "/display/" + str(raw_file_name)
+            return redirect(url)
+    return 'Error Occured.. (Could be because file format not supported,server not resonding.)'
 
-            # storage.child("images/ewlii.png").put(file)
+# @app.route("/upload/<url>")
+# def display(url):
+#     img_url = url
+#     file_name = "images/" + str(name)
+#     img_url = storage.child(file_name).get_url(None)
+#     print(img_url)
+#     return redirect(img_url)
 
-            # Clean-up temp image
-            # os.remove(temp.name)
 
-            # storage.child("images/hsuh.png").put(file)
-            # print(file)
-            # imae = BufferedReader(file)
 
-            return "work done"
-    return 'edo poindi ra seenu'
+
+@app.route("/display/<name>")
+def display(name):
+    file_name = "images/" + str(name)
+    img_url = storage.child(file_name).get_url(None)
+    print(img_url)
+    return render_template('display_image.html',img_url=img_url,file_name=name)
+
+
+@app.route("/show/<name>")
+def show(name):
+    img_name = name
+    file_name = "images/" + str(name)
+    img_url = storage.child(file_name).get_url(None)
+    return redirect(img_url)
 
 
 
 
 if __name__ == '__main__':
+    # app.run(debug=True, host= '192.168.0.xxx')
     app.run(debug=True)
+

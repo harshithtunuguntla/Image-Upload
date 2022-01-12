@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+    <link href='https://fonts.googleapis.com/css?family=Noto Sans' rel='stylesheet'>
+
+    <!-- <script src="https://use.fortawesome.com/349cfdf6.js"></script> -->
+
+    <script src="https://kit.fontawesome.com/7c9f01f1a5.js" crossorigin="anonymous"></script>
+    <title>DevChallenges</title>
+
+
+    <style>
+        :root {
+            --clr-white-darkest: #F6F8FB;
+            --clr-white-dark: #FAFAFB;
+            --clr-white-light: #FFFFFF;
+
+            --clr-blue: #2F80ED;
+            --clr-dashed-border: #97BEF4;
+
+            --clr-gray-2: #4F4F4F;
+            --clr-gray-3: #828282;
+            --clr-gray-4: #BDBDBD;
+
+            --clr-green: #219653;
+
+            --clr-border: #E0E0E0;
+            --clr-url-fill: #F6F8FB;
+        }
+
+        body {
+            background-color: var(--clr-white-dark);
+        }
+
+
+        .drop-area {
+            margin-left: 34rem;
+            margin-top: 8rem;
+            width: 25rem;
+            height: 30rem;
+            background-color: var(--clr-white-light);
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            /* border:blue;
+            border-style: dashed; */
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .heading {
+            font-family: 'Poppins';
+            font-size: 18px;
+            color: var(--clr-gray-2);
+            font-weight: 500;
+            /* margin-top:3rem; */
+
+        }
+
+        .image-area {
+            height: 50%;
+            width: 85%;
+            margin-top: 1rem;
+            border-radius: 12px;
+            /* box-sizing: border-box; */
+            /* border: 2px dashed #97BEF4; */
+            display: flex;
+            /* align-items: center; */
+            /* flex-direction: column; */
+            /* padding:3rem; */
+            /* background-color: var(--clr-white-darkest); */
+
+
+
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+        }
+
+
+
+        .choose-btn {
+            font-family: 'Noto Sans';
+            font-size: 13px;
+            background-color: var(--clr-blue);
+            border-radius: 8px;
+            padding: 6px 10px;
+            color: white;
+            cursor: pointer;
+        }
+
+
+
+        a {
+            text-decoration: none;
+            color: white;
+        }
+
+        .display_url {
+
+            margin-top: 1rem;
+
+            width: 85%;
+            height: 2rem;
+            border-color: var(--clr-border);
+            background-color: var(--clr-url-fill);
+            border-style: solid;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+        }
+
+        .url_box {
+            font-size: 16px;
+            width: 75%;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            margin-left: 5px;
+        }
+
+        @media only screen and (max-width:75rem) {
+            .drop-area{
+                margin-left: 20rem;
+                flex-direction:column;
+            }
+
+        }
+
+        @media only screen and (max-width:45rem) {
+            .drop-area{
+                margin-left: 8rem;
+                flex-direction:column;
+            }
+        }
+
+
+        @media only screen and (max-width:30rem) {
+            .drop-area{
+                margin-left: 0rem;
+                flex-direction:column;
+            }
+
+        }
+    </style>
+</head>
+
+
+
+<body>
+    <div class="drop-area">
+        <!-- <div class="heading">Upload your image</div> -->
+
+        <span style="font-size: 3em; color: var(--clr-green); margin-top: 1.5rem;">
+            <i class="fas fa-check-circle"></i>
+        </span>
+        <div class="heading">Uploaded Succesfully!</div>
+        <div class="image-area">
+            <img src="{{img_url}}" alt="no">
+        </div>
+
+
+
+        <div class="display_url">
+            <p class="url_box" id="theurl">127.0.0.1:5000/show/{{file_name}}</p>
+            <div onclick="copy_to_clipboard()" class="choose-btn">Copy Link</div>
+        </div>
+
+
+
+
+    </div>
+
+
+
+
+    <script>
+        function copy_to_clipboard() {
+            var copyText = document.getElementById("theurl").textContent;
+            console.log(copyText);
+            navigator.clipboard.writeText(copyText);
+            alert("URL Copied: " + copyText);
+
+        }
+    </script>
+
+
+</body>
+
+
+</html>
