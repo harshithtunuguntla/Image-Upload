@@ -12,7 +12,7 @@
       Demo
     </a>
     <span> | </span>
-    <a href="https://{your-url-to-the-solution}">
+    <a href="https://devchallenges.io/solutions/RZ2C2PpwdcwhSkKrb8Vu">
       Solution
     </a>
     <span> | </span>
@@ -31,6 +31,10 @@
 ![screenshot](https://firebasestorage.googleapis.com/v0/b/imageupload-19537.appspot.com/o/images%2F20220112-221835?alt=media)
 ![screenshot](https://firebasestorage.googleapis.com/v0/b/imageupload-19537.appspot.com/o/images%2F20220112-221907?alt=media)
 
+
+
+
+https://user-images.githubusercontent.com/53993341/149232727-64cd0d43-4c2b-48e0-bffb-ae85954575e5.mp4
 
 
 
