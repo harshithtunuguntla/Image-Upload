@@ -47,6 +47,7 @@ storage = firebase.storage()
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
 
+
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
@@ -62,6 +63,11 @@ def date_time():
 
 
 metadata = '"contentType": "image/jpeg"'
+
+
+@app.errorhandler(404)
+def not_found(e):
+    return render_template("error.html"),404
 
 
 @app.route('/')
@@ -136,6 +142,8 @@ def upload_file():
 
             url = "/display/" + str(raw_file_name)
             return redirect(url)
+        else:
+            return render_template("error.html")
     return 'Error Occured.. (Could be because file format not supported,server not resonding.)'
 
 

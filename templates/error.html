@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error</title>
+
+    <style>
+        .heading {
+            font-size: 40px;
+            align-self: center;
+        }
+
+        .sub-heading {
+            font-size: 18px;
+            font-weight: bold;
+            align-self: center;
+        }
+
+
+        li {
+            list-style-type: square;
+            list-style-position: inside;
+            text-align: center;
+        }
+
+        .wrap {
+            padding: 1rem;
+            align-self: center;
+            display: flex;
+            flex-direction: column;
+            background-color: tomato;
+            width: 50%;
+        }
+
+        /* @media only screen and (max-width:90rem) {
+            .wrap {
+                width: 70%;
+                background-color: green;
+            }
+
+        } */
+
+        @media only screen and (max-width:40rem) {
+            .wrap {
+                width: 90%;
+                /* background-color: red; */
+            }
+
+            li{
+                text-align: center;
+                list-style-position: inside;
+                list-style: square;
+            }
+        }
+
+
+    </style>
+</head>
+
+
+
+
+
+<body>
+
+    <br>
+    <br>
+
+
+    <div style="display: flex; flex-direction: column;">
+        <div class="heading">Error occured!</div>
+
+        <br>
+        <br>
+        <br>
+        <br>
+
+
+        <div class="wrap">
+            <br>
+
+            <div class="sub-heading">This could be because</div>
+            <ul style="align-self: center;">
+                <li>You might have uploaded incorrect format (only <strong>jpeg, jpg, png</strong> are accepted)</li>
+                <br>
+
+                <li>You might be trying to access a page that is not found</li>
+                <br>
+
+                <li>Server might not be responding</li>
+            </ul>
+            <br>
+        </div>
+
+
+    </div>
+
+</body>
+
+</html>
