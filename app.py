@@ -90,9 +90,11 @@ def home():
 @app.route('/upload/drop', methods=['POST', 'GET'])
 def upp():
     if request.method == 'POST':
+        
         # print("something happp")
         img_data = request.json['data']
         img = img_data.partition(",")[2]
+
         img = base64.b64decode(img)
 
         raw_file_name = date_time()
@@ -165,4 +167,4 @@ def show(name):
 
 if __name__ == '__main__':
     # app.run(debug=True, host= '192.168.0.xxx')
-    app.run(debug=False)
+    app.run(debug=True)
